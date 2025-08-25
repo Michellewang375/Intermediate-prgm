@@ -1,0 +1,21 @@
+Notes
+  The term directory means the same thing as folder 
+  ~ denotes the home directory of your account
+  . denotes the current directory 
+  .. denotes the parent directory (one level up from current)
+
+
+Recap
+  What is a command-line interface (CLI)?
+    A text base interface system
+  What is the ssh command to connect to the ugrad machine?
+    Remote access (secure shell)
+  What are the commands to move, copy, and remove a file on a Linux machine?
+    ls = short for list
+    cd = navigate into subfolder (i.e. cd<folder name>)
+    mv = move a file/rename file
+    cp = duplicate file
+    rm = remove file
+
+Link to basic Unix guides:
+https://www.cs.jhu.edu/~joanne/unix.html
