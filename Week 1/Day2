@@ -1,0 +1,9 @@
+HOW TO PRINT "Hello world":
+// hello_world.c: (file name)
+#include <stdio.h>
+
+// Print "Hello, world!" followed by newline and exit
+int main(void) {
+  printf("Hello, world!\n");
+  return 0;
+}
