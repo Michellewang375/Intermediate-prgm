@@ -7,3 +7,78 @@ int main(void) {
   printf("Hello, world!\n");
   return 0;
 }
+
+
+
+
+
+
+NOTES:
+
+# - import or inlcude a library (preprocessor directive)
+.h - heather file
+swtiches (-std=c99 -pedantic -Wall -Wextra) --> should be in the gcc command
+    -std=c99 (standard)
+    rest are feedback to computer
+executable - default is (.out) & ./ is referring to somehting in current directory
+
+3 steps of gcc:
+    1. preprocessor - scans the code and find ones that start with #
+    2. compiler - turn human-readable source code into object code
+    3. linker - link all dot C files into one executable one
+
+%(data type) - place holder
+    d - decimal (integer type, ld for long int)
+    u - unsigned (integer type that disallows negatives, lu for long unsigned)
+    f - floating point (single-precision floating point number) --> (lf for double)
+    c - character
+    s - string
+    booleans: no bool, if want to use can either 1. #include <stdbool.h> OR 2. use integers (0/1 as T/F)
+          i.e.:
+                #include <stdio.h>
+                int main(){
+                    int d = 36;
+                    printf("There are %d students in class.", d);
+                    return 0; }
+
+Operators
+  ・add (+)
+  ・subtract (-)
+  ・multiplication (*)
+  ・division (/) ; truncates decimal //i.e. 7/2 --> 3
+  ・remainder (%)
+  i.e.:
+        #include <stdio.h>
+        int main(void) {
+            int fahrenheit = 75;
+            float celsius = 5.0 / 9.0 * (fahrenheit - 32);
+            printf("%0.2f", celsius); //2 decimals
+        return 0;}
+  ・const - put b4 the type to say a variable cannot be modified
+
+Read from user:
+  scanf - reading from user input (returns a value)
+      if 0 - invalid input
+      if -1 - no input at all
+  i.e.:
+    int i;
+    printf("Please enter an integer: ");
+    scanf("%d", &i);
+    printf("The value you entered is %d", i);
+
+
+
+
+
+EXCERCISE:
+//Write a program that reads two integer numbers as input and prints the sum of them
+    #include <stdio.h>
+    int main(){
+        int i;
+        int x;
+        printf("Please enter an integer: ");
+        scanf("%d", &i);
+        printf("Please enter an integer: ");
+        scanf("%d", &x);
+        printf("The sum of the value you entered is %d", i+x);
+     return 0; }
