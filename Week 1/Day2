@@ -19,8 +19,10 @@ NOTES:
 .h - heather file
 swtiches (-std=c99 -pedantic -Wall -Wextra) --> should be in the gcc command
     -std=c99 (standard)
+    -pedantic (giving all information; check everything for the standard)
+    -Wall & - Wextra(turn on all and extra warnings)
     rest are feedback to computer
-executable - default is (.out) & ./ is referring to somehting in current directory
+executable - default is (a.out) & ./ is referring to somehting in current directory
 
 3 steps of gcc:
     1. preprocessor - scans the code and find ones that start with #
@@ -35,11 +37,11 @@ executable - default is (.out) & ./ is referring to somehting in current directo
     s - string
     booleans: no bool, if want to use can either 1. #include <stdbool.h> OR 2. use integers (0/1 as T/F)
           i.e.:
-                #include <stdio.h>
+                #include <stdio.h> //standard input output library
                 int main(){
                     int d = 36;
                     printf("There are %d students in class.", d);
-                    return 0; }
+                    return 0; } // return 0 serves as a signal of success
 
 Operators
   ・add (+)
@@ -63,8 +65,13 @@ Read from user:
   i.e.:
     int i;
     printf("Please enter an integer: ");
-    scanf("%d", &i);
+    scanf("%d", &i); //can return how many vals r read
     printf("The value you entered is %d", i);
+
+
+
+IN CLASS NOTES
+
 
 
 
