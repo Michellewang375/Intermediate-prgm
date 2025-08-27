@@ -1,0 +1,27 @@
+GIT COMMANDS
+• git add <file>: add to project
+• git commit -m "commit message": update local repo to include changes since last commit
+• git push: send changes up to remote repo (on github)
+• git pull: local repo asks for most updated copy from remote repo
+• git status: check what’s been modified or staged, etc
+• git mv <old_file> <new_file>: rename a file
+• git rm <file>: remove a file
+• git log: most recent commits
+Tracked: Files that are part of your project
+    • Unmodified (same as copy in local repo)
+    • Modified (different from copy in local repo but not yet staged)
+    • Staged (next git commit will update repo)
+        • editing files: Unmodified -> Modified
+        • git add: Modified -> Staged
+        • git commit: Staged -> Unmodified
+
+To copy a file named file.c from your home directory on ugrad to a local machine: scp <username>@ugradx.cs.jhu.edu:file.c
+    For subfile (i.e.xyz): scp <username>@ugradx.cs.jhu.edu:HW1/file.c xyz/ 
+Packing mulitple files: zip zipped_files.zip file1.c file2.c gitlog.txt
+Confirm files (without unpacking it): unzip -l zipped_files.zip
+Unpack the zip file: unzip zipped_files.zip
+
+Redirecting results to a txtfile: 
+• Output: > outfile
+• Input: < infile
+• Both at once: |
