@@ -1,1 +1,136 @@
+LOGICAL OPERATORS
+i.e. A=1, B=0 (in C, 0=false, all else is true)
+    • && ("and") - (A&&B --> false)
+    • || ("or") - (A||B --> true)
+    • ! ("not") - (!(A&&B) --> true)
+code eg:
+        #include <stdio.h>
+        int main(void) {
+            int a = 5, b = 5, c = 10, result = 0;
+            result = (a == b) && (c > b);
+            printf("(a == b) && (c > b) equals to %d \n", result);
+            result = (a == b) && (c < b);
+            printf("(a == b) && (c < b) equals to %d \n", result);
+            result = (a == b) || (c < b);
+            printf("(a == b) || (c < b) equals to %d \n", result);
+            result = (a != b) || (c < b);
+            printf("(a != b) || (c < b) equals to %d \n", result);
+            result = !(a != b);
+            printf("!(a != b) equals to %d \n", result);
+            result = !(a == b);
+            printf("!(a == b) equals to %d \n", result);
+        }
+        
+        $ gcc logical_op.c -std=c99 -pedantic -Wall -Wextra
+        $ ./a.out
+        (a == b) && (c > b) equals to 1
+        (a == b) && (c < b) equals to 0
+        (a == b) || (c < b) equals to 1
+        (a != b) || (c < b) equals to 0
+        !(a != b) equals to 1
+        !(a == b) equals to 0
+
+
+
+
+CONDITIONALS
+• if
+    if (a) {
+    printf("a is true\n"); }
+• if else
+    if (a) {
+    printf("a is true\n"); }
+    else {
+    printf("a is false\n"); )
+• switch (only works with int , char , and enum types. no strings)
+    • switch jumps to the first matching case of the expression and executes statements from there, continuing into later cases unless stopped by a break
+    • structure:
+        switch (integer expr) {
+        case c1: statement1; // execution starting point for c1
+        case c2: statement2;
+        break; // exits switch block
+        case c3:
+        case c4: stmt3;
+        stmt4; // executes stmt3, stmt4 and stmtlast for matches of c3 or c4
+        default: stmtlast; // if no case matches
+        // here, defualt will also print bc there is no break statement between c3, c4, and default
+        }
+    • eg:
+        #include <stdio.h>
+        int main () {
+            char grade = 'B';
+            switch(grade) {
+            case 'A' :
+            printf("Excellent!\n");
+            break;
+            case 'B' :
+            case 'C' :
+            printf("Well done\n"); //if grade is B or C will print this statement
+            break;
+            case 'D' :
+            printf("You passed\n");
+            break;
+            case 'F' :
+            printf("Better try again\n");
+            break;
+            default :
+            printf("Invalid grade\n");
+            }
+            printf("Your grade is %c\n", grade);
+        }
+        $ gcc switch_example.c -std=c99 -pedantic -Wall -Wextra
+        $ ./a.out
+        Well done
+        Your grade is B
+
+
+
+COMPOUND ASSIGNMENTS; INCREMENT & DECREMENT
+  • += (a = a + val)
+  • -= (a = a - val)
+  • *= (a = a * val)
+  • /= (a = a / val)
+  • %= (a = a % val)
+  • ++ (++a) - increment a by 1 and then use the new val in the expression in which a resides
+  • ++ (a++) - use the val in which a resides, then increment by 1
+  • -- (--a) - decrement a by 1 and then use the new val in the expression in which a resides
+  • -- (a--) - use the val in which a resides, then decrement by 1
+
+
+
+LOOPS
+• while(boolean expression) { statements }
+    • Iterates ≥ 0 times, as long as expression is true
+• do { statements } while(boolean expression);
+    • Iterates ≥ 1 times; always once, then more times as long as expression is true
+• for(initialize; boolean exp; update) { stmts } // very similar to java
+    • initialize happens first; usually declares & assigns “index variable”
+    • Iterates ≥ 0 times, as long as boolean expression is true
+    • Right after stmts, update is run; often it increments the index variable (i++)
+        eg:
+              #include <stdio.h>
+              int main(void) {
+                  for(int i = 0; i < 10; i++) {
+                      printf("%d ", i); } }
+• break - immediately exits loop
+• continue - immediately proceeds to next iteration of loop, does not exit the loop just skips the rest
+    • goes back up to check boolean expression, if true then go back inside the loop
+examples: A loop that reads in values until no more are available
+      #include <stdio.h>
+      int main(void) {
+      int sum = 0;
+      int addend; //addend's value is undefined to start
+      while (scanf("%d", &addend) == 1) {  //read as many integers as we can
+      sum += addend; //accumulate the sum of all numbers
+      }
+      printf("%d\n", sum); //output the sum
+      return 0;
+      }
+This contnues to scan even when you press enter. To signal
+end-of-input, press Ctrl-D (possibly twice).
+
+
+
+
+
 
