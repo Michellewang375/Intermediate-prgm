@@ -1,1 +1,49 @@
+ARRAYS
+• All elements have the same declared type;
+• Must initialize all values or will have error
+    #include <stdio.h>
+    int main() {
+        int c[12]; //12 spots, starting from 0
+        c[0] = 7; // first element, set its value to 7
+        c[11] = 1; // last element
+        printf("first c=%d, last c=%d\n", c[0], c[11]);
+        return 0; }
+• w/ loop:
+    #include <stdio.h>
+    int main() {
+        int c[12]; // elements undefined!
+        for(int i = 0; i < 12; i++) {
+            c[i] = i; //initialize with value matching index number
+        }
+    printf("c[4]=%d, c[9]=%d\n", c[4], c[9]);
+    return 0; }
+• or all the values in {}, almost like a list
+    #include <stdio.h>
+    int main() {
+        int c[5] = {2, 4, 6, 8, 10}; //dont need to type in 5 inside [], can auto figure it out
+        printf("c[1]=%d, c[3]=%d\n", c[1], c[3]);
+        return 0; }
+• another eg: // prints out how many 0,1,2 there are in data --> output: 2, 5, 3
+    #include <stdio.h>
+    int main() {
+        int data[10] = {2, 1, 1, 1, 2, 0, 1, 2, 1, 0};
+        int freq[3] = {0, 0, 0};
+        for(int i = 0; i < 10; i++) {
+            freq[data[i]]++; }
+        printf("%d, %d, %d\n", freq[0], freq[1], freq[2]);
+        return 0; }
+
+
+
+ASCII
+• char variable holds a single variable. use single quotes
+• works much like intergers
+• eg: //say I want to print "c", which is 99 dec. I can also print it by saying "char digit =‘100’- 1;", not digit is value 99 on ASCII, which is 'c'
+• can use the "#include <ctype,h>" library
+    • isalpha - a function that returns true/false
+    • isdigit - check if given character is a digit
+    • islower - check if lower case
+    • isspace - check if white space (true for space, tab, and new line)
+    • tolower - convert upper to lower case
+    • toupper - convert lower to upper case
 
