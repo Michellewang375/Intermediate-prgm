@@ -70,6 +70,47 @@ STRINGS
     printf("%s\n", str); //use %s as string format specifier
     printf("%s\n", str_copy);
     return 0; }
+• slicing strings using null:
+    #include <stdio.h>
+    #include <string.h> //include string.h for strlen
+    int main() {
+        char s[] = "goodbye";
+        printf("s = %s\n", s);
+        s[4] = '\0'; //replace b with '\0'
+        printf("But now, s = %s", s); //now only prints chars
+        //up to the (first) '\0'
+    //prints: s = goodbye
+    //prints: But now, s = good
+• string sizes:
+    • strlen function returns number of chars before \0
+        • printf("s = %s, strlen(%s) = %lu\n", s, s, strlen(s)); --> prints 7 //will return say 4 is null terminator is placed at 'b'
+    • sizeof function returns amount of space occupied by variable
+        • printf("s = %s, sizeof(%s) = %lu\n", s, s, sizeof(s)); --> prints 8 //will still return 8 even if null terminator is half way
+    • here we used %lu (long unsigned) bc that is the return type of strlen and sizeof
+    • sizeof(variable) returns the total # of bytes occupied by variable
+    • sizeof(type_name) works too
+    • char type is one byte, so if s is a char array type, then sizeof(s) tells you the capacity of that array
+    • In general for an array: sizeof(array_var) / sizeof(base_type) tells you its declared size (number of elements it can hold)
+        • eg code:
+            #include <stdio.h>
+            int main() {
+            char s[] = "goodbye";
+            printf("sizeof(s) = %lu, sizeof(s[0]) = %lu\n", sizeof(s), sizeof(s[0])); // prints sizeof(s) = 8, sizeof(s[0]) = 1
+            int ra[] = {1, 2, 3, 4, 5};
+            printf("sizeof(ra) = %lu, sizeof(int) = %lu\n", sizeof(ra), sizeof(int)); //prints sizeof(ra) = 20, sizeof(int) = 4 (this is because we have 5 values in ra, and each int byte is 4. 4x5=20)
+            printf("capacity of ra = %lu\n", sizeof(ra) / sizeof(int)); //prints capacity of ra = 5
+            return 0; }
+• string operations (#include <string.h> for helpful string functions)
+    • strcmp(s1, s2) - compares two strings according to character using ASCII
+        • (-): s1 before s2 // strmp("abc", "abd") --> c is before d
+        • (0): s1 and s2 equal // strmp("bg", "bg")
+        • (+): s1 after s2 // strmp("ac", "acg") --> ac is after acg, one less value
+    • strcpy(s1, s2) copy effect is like s1 = s2 (s1 must be declared with a sufficient size)
+    • strcat(s1, s2) concatenate effect is like s1 = s1 + s2 (s1 must be declared with a sufficient size)
+
+
+            
+
 
 
 
