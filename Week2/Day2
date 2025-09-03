@@ -39,11 +39,41 @@ ASCII
 • char variable holds a single variable. use single quotes
 • works much like intergers
 • eg: //say I want to print "c", which is 99 dec. I can also print it by saying "char digit =‘100’- 1;", not digit is value 99 on ASCII, which is 'c'
-• can use the "#include <ctype,h>" library
+• C character library -- can use the "#include <ctype,h>" library
     • isalpha - a function that returns true/false
     • isdigit - check if given character is a digit
     • islower - check if lower case
     • isspace - check if white space (true for space, tab, and new line)
     • tolower - convert upper to lower case
     • toupper - convert lower to upper case
+
+
+
+
+STRINGS
+• a string is an array of characters with final character equal to the “null character/terminator (\0)”
+    char day1[] = "Monday"; //it has 7 characters, not 6 bc of null terminator
+    char day2[] = {'m', 'o', 'n', 'd', 'a', 'y', '\0'};
+• accessing strings example:
+    #include <stdio.h>
+    int main() {
+    const char str[] = "hello";
+    printf("%c %c %c\n", str[1], str[2], str[4]);
+    return 0; } //prints "e l o"
+• copying string example:
+    #include <stdio.h>
+    int main() {
+    const char str[] = "hello";
+    char str_copy[6]; //remember the null!
+    for(int i = 0; i < 6; i++) {
+        str_copy[i] = str[i]; }
+    printf("%s\n", str); //use %s as string format specifier
+    printf("%s\n", str_copy);
+    return 0; }
+
+
+
+
+
+
 
