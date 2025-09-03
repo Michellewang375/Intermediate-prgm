@@ -29,7 +29,14 @@ code eg:
         (a != b) || (c < b) equals to 0
         !(a != b) equals to 1
         !(a == b) equals to 0
-
+unary operators --> arithemtic --> comparison (lowercase greater than cap) --> logical (and before or)
+        int num = 6;
+        if (num = 24 / 3 && 'c' > 'D' || ++num) printf("first"); 
+            // first unary, num = 7 (after ++num)
+            // second arithemtic, 8 (after 24/3)
+            // third comparsion ('c' > 'D' --> true)
+            // last logical (8 && true || 7) --> prints first
+        else printf("second");
 
 
 
