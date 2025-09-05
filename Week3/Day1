@@ -1,0 +1,79 @@
+FILE INPUT/OUTPUT
+fopen("file.txt", "w") //Open file "file.txt" in writing mode ("w")
+    • Equals NULL if fopen failed
+      i.e. FILE* input = fopen("file.txt", "r");
+Possible modes:
+    • "r": reading
+    • "w": open file for writing
+    • "r+": open for reading & writing
+    • "w+": open file for reading & writing
+• feof(fileptr) returns non-zero if we’ve read past the end of the file
+• ferror(fileptr) returns non-zero if file is in an error state
+• rewind(fileptr) returns fileptr to beginning of file
+• pointers 
+    • stdin
+    • stdout //fprintf(stdout, "Hello, World\n"); --> basically will just return printf
+    • stderr
+      i.e. printing error msg to stderr
+          FILE *in = fopen(filename, "r");
+            if (in == NULL) {
+              fprintf(stderr, "Could not open '%s'\n", filename);
+          return 1;
+          }
+
+
+
+ASSERTION
+assert(boolean expression);
+• Assertion statements help catch bugs as close to the source as possible
+• Require #include <assert.h>
+• If false, program immediately exits with an error message indicating the assertion failed
+• i.e.
+    int sum = a*a + b*b;
+    assert(sum >= 0);
+
+
+
+MATH LIBRARY
+#include <math.h> and compile with -lm option
+  • sqrt(x): square root
+  • pow(x, y): x^y
+      • x & y arguments have type double
+  • exp(x): e^x
+  • log(x): natural log
+  • log10(x): log base 10
+  • ceil(x) / floor(x): round up / down to nearest integer
+  • sin(x): sine (other trigonometric functions available)
+
+
+
+WRITING FUNCTIONS
+i.e.
+    int foo(char c, int i) { //foo is the name; int is the return type; (char c, int i) are the paramenter list w/ char c and int i as the parameters; everything inside {} is body
+        return i; }
+    runs: int foo
+i.e.
+  float func1 (int x, float y) {
+    return x+y; }
+  int a = 7;
+  float b = 2.5;
+  float c = func1(a,b);
+  float d = func1(a,c);
+  float e = func1(a+2,3.5);
+A function returning nothing has return type void, no need return statment; can use (void) or ()
+  void say_hello() {
+    printf("Hello, World!\n"); }
+
+
+
+COMMAND LINE ARGUMENTS
+i.e.
+    #include <stdio.h>
+    int main(int argc, char* argv[]) { //int argc - how many command line args we hv (always at least 1); char* argv[] - an arry of strings
+      printf("argc = # arguments + 1: %d\n", argc);
+        for(int i = 0; i < argc; i++) {
+          printf("argv[%d] = %s\n", i, argv[i]); }
+    return 0; }
+    prints: argc = # arguments + 1: 2
+            argv[0] = ./a.out
+            argv[1] = rosebud
