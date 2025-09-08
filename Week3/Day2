@@ -40,3 +40,5 @@ RECURSION
     printf("sum 1..100 is %u\n", sum_1_to_n(100)); //5050
     return 0;
     }
+    • Max number of stack frames at the “deepest” point is proportional to the value of n passed to sum_1_to_n (when it reaches the base case)
+• good for “divide and conquer” algorithms (i.e. merge sort, quicksort)
