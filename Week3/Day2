@@ -1,0 +1,42 @@
+FUNCTION DECLARATIONS
+• helper function should come before main
+• can declare a function before function that calls it (define later)
+    #include <stdio.h>
+    float func1 (int x, float y); //declaration
+    int main() {
+        int a = 7;
+        float b = 2.5;
+        float c = func1(a,b);
+        printf("a = %d, b = %.2f, c = %.2f\n", a, b, c);
+        return 0; }
+    float func1 (int x, float y) { //definition
+    return x+y; }
+
+
+PASSING ARRAYS TO FUNCTIONS
+• if pass array into function, it also changes the original array 
+• when passing array as parameter in function, also have to address its length seperately because of pointer)
+    #include <stdio.h>
+    void myFunc(int x, int a[]) {
+        x += 3;
+        a[0] = 42; }
+    int main(void) {
+    int y = 4;
+    int r[] = { 1, 2, 3 };
+    myFunc(y, r); //y=4, r[0]=42(replaced 1 w/42)
+    return 0; }
+• "returning" an array --> set as void, therefore can modify the array w/o returning
+
+RECURSION
+• base cases - dictates termination of program, should be solved w/o recusion 
+• recursion works towards the base case
+    unsigned sum_1_to_n(unsigned n) {
+    if (n == 0) { // check base case
+        return 0; }
+    return sum_1_to_n(n - 1) + n; } //keeps on adding n to (n-1), i.e. basically adding backwards 2+(2-1)+(1-1)
+    int main(void) {
+    printf("sum 1..2 is %u\n", sum_1_to_n(2)); //3
+    printf("sum 1..10 is %u\n", sum_1_to_n(10)); //55
+    printf("sum 1..100 is %u\n", sum_1_to_n(100)); //5050
+    return 0;
+    }
