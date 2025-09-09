@@ -36,3 +36,15 @@ i.e.
         $(CC) $(CFLAGS) -c functions.c
       clean: //target 4
         rm -f *.o main
+
+
+HEADER GUARDS
+• header guards - used when making our own .h files
+  • useful for when your header contains definitions; prevents definition duplications when multiple .c files include the same .h file
+i.e. // rectangle.h:
+    #ifndef RECTANGLE_H // include lines like this at the top; change the all-caps
+    #define RECTANGLE_H // name to match the file name, rectangle.h in this case
+    struct rectangle { 
+      int height;
+      int width; };
+    #endif // include this line at the bottom
