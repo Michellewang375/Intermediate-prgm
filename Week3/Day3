@@ -1,0 +1,38 @@
+SEPERATE COMPILATION
+•  header files (.h files) - group together declarations, then <#include> them into appropriate file
+i.e. 
+  file 1:
+      #include "functions.h" 
+  file 2(main file):
+      #include <stdio.h> //angle for standard c library
+      #include "functions.h" //double quotes for customized
+      int main() { return 0; }
+  run: gcc -std=c99 -pedantic -Wall -Wextra mainFile.c functions.c --> ./a.out //links both files tgt
+• dont compile header files, only .c ones
+    • compiling translates source files (.c files)
+    • intermediate object files (.o files)
+• compiling multiple functions - compile 2 functions seperately then link them tgt with -o
+      gcc -std=c99 -pedantic -Wall -Wextra -c functions.c
+      gcc -std=c99 -pedantic -Wall -Wextra -c mainFile.c
+      gcc -o main mainFile.o functions.o
+      ./main  //run executable
+
+
+
+MAKEFILES
+• git makefule tutorial: https://makefiletutorial.com/
+• make - a tool that can automatically check and c which files hv been changed and then compile them; link the object code files to produce an executable
+• need to set up a config 'Makefile'
+• main is at top, intermediate at bottom
+• needs to be (tab), not space
+i.e.
+      CC=gcc
+      CFLAGS=-std=c99 -pedantic -Wall -Wextra
+        main: mainFile.o functions.o //target 1
+      $(CC) -o main mainFile.o functions.o
+        mainFile.o: mainFile.c functions.h //target 2
+      $(CC) $(CFLAGS) -c mainFile.c
+      functions.o: functions.c functions.h //target 3 --> u need functions.c and functions.h to run .o
+        $(CC) $(CFLAGS) -c functions.c
+      clean: //target 4
+        rm -f *.o main
