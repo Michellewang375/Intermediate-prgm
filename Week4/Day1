@@ -1,0 +1,21 @@
+MULTIDIMENSIONAL ARRAYS
+Declaring: <base_type> <name>[dim1_sz][dim2_sz][dim3_sz];
+• Array elements are stored in row-major order
+• all of row1 comes first, then all of row2
+    int a[row_size][col_size];
+    int table[2][4] = { {1,2,3,4},{5,6,7,8} }; //[1,2,3,4,5,6,7,8]
+    table[i][j] // refers to jth element in ith row of 2D array
+• First array size need not be specified in formal parameter, but second and following dimensions must be given
+    void sum_matrix(int list[][4], int numRows);
+
+
+GDB
+• a GNU debugger (-g)
+• to run debugger program: gdb ./file_name(w/o .c)
+• After running a command, gdb prints out the next line of code in the program
+• gdb commands:
+    break function_name - stops program at beginning of function in order to debug function line by line
+    run - start the program,  immediately pauses at top of function_name
+    next - executes the statement on the current line and moves onto the next. doesnt pause at function calls
+    step - begins to execute the statement on the current line. If function call, it steps into the function and pauses there, or else behaves like next
+    list - show current code block
