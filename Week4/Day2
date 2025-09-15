@@ -1,0 +1,17 @@
+POINTERS
+• A pointer is a variable that contains the address of a variable.
+• Every pointer points to a specific data type (except void)
+• Declare a pointer using type of variable it will point to, and a *
+      • int *p; variable p w/ address of int 
+• Operations related to pointers
+      • address-of operator (&): returns address of whatever follows it
+      • dereferencing operator (*): returns value being pointed to
+            int x = 1;
+            int y = 2;
+            int *ip; /* declare ip, points ip to int */
+            ip = &x; /* ip now "points to" x */ (val of 1)
+            y = *ip; /* y is now 1 */
+            *ip = 0; /* x is now 0 */
+• More egs:
+    • *ip = *ip + 10 //whatever ip is pointing to, inc its val by 10
+    • y = *ip + 1 //take whatever ip is pointing to, inc it by 1, the assign it to y
