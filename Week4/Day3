@@ -1,0 +1,46 @@
+DYNAMIC MEMORY ALLOCATION
+• use when  the amount of memory your program needs is not known at compile time (more memory is needed beyond the stack)
+•  Dynamically-allocated memory is located in a part of memory separate from the stack; it lives on “the heap”
+• no size limit (size can be decided at run time)
+• have to manually deallocate (or else will cause memeory leak)
+
+"malloc" as command to allocate memory from (#include <stdlib.h>)
+    int *ip = malloc(sizeof(int)); // allocate space for one int on heap
+    if (ip == NULL) { /*output error message*/ }  // check if allocation succeeded
+    *ip = 0; // give dynamically-allocated int an initial value
+    free(ip); // deallocate 
+    ip = NULL; //ensure no more use of pointer
+• deallocation can happen at some other function
+    int *a = malloc (sizeof (int) * n) ;
+    if (a == NULL) { /*output error message*/ }
+    a[O] = 0; //[] to access elements in array
+    a[n- 1] = 0;
+    free(a); //deallocate all of a
+    a = NULL;
+
+
+"realloc" reallocates the given area of memory
+• used for both expanding and contracting, area must have been previously allocated
+• On success: returns the pointer to the beginning of newly allocated memory
+• On failure: returns a null pointer
+• i.e. 
+    int *ptr = malloc(sizeof(int)*100); //allocate
+    ptr = realloc(ptr, sizeof(int) * 10000); //reallocate to expand size
+
+"calloc" works like malloc but initializes all bits to 0
+
+
+
+
+
+
+
+VALGRIND
+• debugging tool for finding memory usage mistakes
+• use -g then type in: 
+    valgrind --leak-check=full --show-leak-kinds=all \
+    ./myFile <arg1> <arg2> ...
+• issues that are flagged 
+    Invalid reads or writes: attempts to dereference pointers to memory that is not yours
+    Memory leaks: failing to deallocate a block of memory that you allocated
+• if all is good, HEAP summary will give: 0 bytes in 0 blocks
