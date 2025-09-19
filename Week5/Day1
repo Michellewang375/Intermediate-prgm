@@ -1,0 +1,69 @@
+POINTER OPERATIONS
+• "%p" (prints vlaue of pointer in hex)
+• +, -, +=, -= (can be used with other pointers or integers for the 2nd operand)
+• Doesn’t add the actual number, it adds that number * how many bytes each element takes up based on the pointer base type
+    • int * p --> code p+1 = add 4 bytes to (sizeof(int)) to p’s address
+• ==, != (check if point to same mem location)
+• = (assigns, only memory address in after = is copied, ref same mem location, only works on same pointer type)
+• <, > (compares address)
+eg:
+    • int a[10]
+        • a[3] (non pointer) is the same as *(a + 3) (pointer)
+        • a + 3 (non pointer) is the same as &a[3] (pointer)
+
+
+
+
+
+
+
+
+DYNAMIC 2DARRAYS (**)
+• array [row][col]
+• *(a + 10) is the same as a[3][1]
+• ** (dynamically allocate 2d arrays; allocate an array of pointers to pointers)
+
+eg:
+    int **a = malloc(sizeof(int*) * num_rows); //make x rows of pointers --> making integers to pointers
+    for (int i = 0; i < num_rows; i++) {
+        a[i] = malloc(sizeof(int) * num_cols); } // allocate x actual interger block
+    a[2][1] = 17; // this works!
+    for (int i = 0; i < num_rows; i++) {
+        free(a[i]); }
+    free(a); 
+
+•  given int **a has been fully allocated --> can be treated as 1D array
+
+eg:
+    void printFloats(float fray[], int count) {
+    for (int i = 0; i < count; i++)
+        printf("%.1f ", fray[i]); } // gets each sub array's value
+    int main(void) {
+    float fra[5][3] = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}, {10, 11, 12}, {13, 14, 15}};
+    for (int r = 0; r < 5; r++) { //iterates over all number of subarrays of fra
+        printFloats(fra[r], 3); }
+    return 0; } //prints below:
+                1.0 2.0 3.0
+                4.0 5.0 6.0
+                7.0 8.0 9.0
+                10.0 11.0 12.0
+                13.0 14.0 15.0
+
+• nonuniform 2d arrays:
+    int **ra2d = malloc(sizeof(int*) * 10); // create 10 pointers to rows
+    for (int i = 0; i < 10; i++) { 
+    ra2d[i] = malloc(sizeof(int) * (i + 1)); } // create rows with sizes 1 to 10
+
+const (constant)
+• like final in java
+• protecting data pointed to:
+    • const int * iptr // make a (mutable) pointer to const (non-modifiable) data; prevents chaning content of the pointed to memory; only copy is affected, not the original
+        *iptr = 10; // not allowed
+        iptr = &num; // allowed for int variable num
+        iray[0] = 10; // not allowed
+        iray = malloc(sizeof(int)); // allowed
+• protecting the pointer:
+    • int * const iptr // make a const (non-modifiable) pointer; prevents assignments to change
+        int * const iptr = &num;
+        iptr = &other; // not allowed
+        iray = b; // not allowed
