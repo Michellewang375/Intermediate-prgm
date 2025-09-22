@@ -16,7 +16,7 @@ int main(void) {
 NOTES:
 
 # - import or inlcude a library (preprocessor directive)
-.h - heather file
+.h - header file
 swtiches (-std=c99 -pedantic -Wall -Wextra) --> should be in the gcc command
     -std=c99 (standard)
     -pedantic (giving all information; check everything for the standard)
@@ -67,11 +67,6 @@ Read from user:
     printf("Please enter an integer: ");
     scanf("%d", &i); //can return how many vals r read
     printf("The value you entered is %d", i);
-
-
-
-IN CLASS NOTES
-
 
 
 
