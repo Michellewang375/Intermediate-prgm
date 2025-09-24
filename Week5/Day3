@@ -1,0 +1,77 @@
+BINARY FILES
+• binary file - anything that isnt a text file
+• FILE *fp = fopen("data.dat", "rb"); //opens the file in binary read mode
+• Literally copy bits from disk to memory (fread)
+    int items_read = fwrite(where_to, size_of_el, num_els, fp); //fp - file cursor location
+      1. file beginning at the file cursor location fp
+      2. then reads size_of_el * num_els bytes of memory
+      3. stores them starting at pointer location where_to
+      4. returns the num of items successfully written (should = num_els)
+• memory to disk; copying data from memory to the specified file (fwrite)
+    int items_written = fwrite(where_from, size_of_el, num_els, fp);
+
+
+BITWISE OPERATOR
+• AND (&) - performs like logical (&&)
+    int main() {
+    int a = 12;
+    int b = 25;
+    printf("%d & %d = %d", a, b, a & b);
+    return 0; } // prints 12 & 5 = 8
+          00001100 (12)
+        & 00011001 (5)
+          ________
+          00001000 = 8 (In decimal)
+
+• OR inclusive (|) - performs like logical (||); the bit result is 1 if at least one of the corresponding bits in the two operands is 1
+    int main() {
+    int a = 12;
+    int b = 25;
+    printf("%d & %d = %d", a, b, a | b);
+    return 0; } // prints 12 | 5 = 29
+          00001100 (12)
+        | 00011001 (5)
+          ________
+          00011101 = 29 (In decimal)
+
+• OR exclusive (^); the bit result is 1 if at exactly one of the corresponding bits in the two operands is 1
+
+• Shifting Left (<<)
+    int main() {
+    int a = 25;
+    int b = 5;
+    printf("%d << %d = %d", a, b, a << b);
+    return 0; } // prints 25 << 5 = 800
+          0000011001 (25)
+          << 5
+          __________
+          1100100000 = 800 (In decimal) //front 5 zeros fall out, back is filled by zeros
+everytime shifting left, going x2. 000001(2^4) 1(2^3) 0(2^2) 0(2^1) 1(2^0) --> each shift: 2(25) = 50(2) = 100(2) = 200(2) = 400(2) = 800
+
+• Shifting Right (>>)
+    int main() {
+    int a = 25;
+    int b = 4;
+    printf("%d << %d = %d", a, b, a >> b);
+    return 0; } // prints 25 >> 4 = 1
+          0000011001 (25)
+          >> 4
+          __________
+          0000000001 = 1 (In decimal) //back 4 (1001) fall out, front is filled by zeros
+
+• One's complement (~); all 0 set to 1, and 1 set to 0
+
+• eg
+int main() {
+  int num = 53;
+  char bin_str[33] = {'\0'}; //to write 32 byte + null terminator
+  int temp = num;
+  for(int i = 0; i < 32; i++) {
+    if((temp & 1) != 0) { // least significant bit set?
+  bin_str[31-i] = '1'; // prepend 1 (31 bc 32 is null terminator)
+  } else {
+    bin_str[31-i] = '0'; } // prepend 0
+    temp >>= 1; } // shift right by 1 to get rid of right most bit
+  printf("%d in binary: %s\n", num, bin_str);
+  return 0; } //prints: 53 in binary: 00000000000000000000000000110101
+
