@@ -1,0 +1,56 @@
+NUMBER REPRESENTATION
+• use “two’s complement” representation for signed integers
+  • one completement first then add 1 
+      eg: +3 (0011) --> ~(0011) --> 1100 --> 1100 + 1 --> 1101 (-3)
+  • When a two’s complement number overflows, it wraps around to a negative number
+      eg: 7 (0111) --> 1110 + 1 (overflow) --> wraps around to -8 (1000)
+          int main() {
+            int i = 7; // largest integer value
+            int i_plus_1 = i + 1;
+            printf("i = %d, i+1 = %d\n", i, i_plus_1);
+            return 0; } //i = 7, i + 1 = -8
+  • underflow works the same as above. can go from (-) --> (+) by reverse
+• Floating point have separate sets of bits for sign, exponent and mantissa.
+• Integer literal is determined based on its value
+• Floating-point literal has type double (force to be float by adding 'f') -- > float a = 3.14f
+
+
+
+
+TYPE CONVERSION
+char < int < unsigned < long < float < double
+• A value’s type is narrowed automatically w/o compiler warning when: 
+    1. assigning to a variable of narrower type
+    2. passing an argument into a parameter of narrower type
+  • smaller to larger type --> promotion (float ten = 10)
+      int main() {
+        int a = 1;
+        float f = a * 1.5f; 
+        printf("%f\n", f); //1.500000
+        return 0; }
+  • larger to smaller type --> narrowing (int ten = 10.585)
+        int main() {
+        unsigned long a = 1000;
+        int b = a; // automatic narrowing conversion
+        float c = 3.14f;
+        double d = c; // automatic conversion
+        printf("b=%d, d=%f\n", b, d); //b=1000, d=3.140000
+        return 0; }
+
+•  Casting - a higher precedence operation than the binary arithmetic operators since it is a unary operation (helps make your code clearer)
+    int main() {
+    int a = 3;
+    float f = (float) a / 2;  // a gets *cast* to float & gets promoted to float before division
+    printf("%f\n", f); // 1.500000
+    return 0; }
+eg:
+float p = 2000.0, r = 0.10;
+float ci_1 = p * pow(1 + r, 10); //total 5 conversions
+  // 1 + r (int  + float) --> int to float promotion
+  // float (1 + r) --> promote into double  (pow is double)
+  // int 10 --> promote into double 
+  // p * pow(1 + r, 10) --> float * double, therefore float promoted into double
+  // float  = double, casting narrows double into float
+
+
+
