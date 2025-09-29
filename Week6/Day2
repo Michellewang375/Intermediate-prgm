@@ -1,0 +1,39 @@
+LINKED LIST
+• linear data structure in which the elements (nodes) are scattered in memory
+• node has 2 things: 1. the data it stores 2. pointer to the next node 
+    • each node knows the address of its successor
+• last node’s next pointer points to NULL
+• the entry point (head) is not a node itself, it holds the address of the first node; if empty linked list head pointer points to NULL
+
+• size of the array is fixed sized of linked list is not fixed
+• requires more space 
+• must traverse list from the start
+• no shifting, and deleting is easy (kind of)
+
+Node struct & create_node (one isolated node)
+    typedef struct node_ { //a node has 2 things
+      char data; // could be any type
+      struct node_ * next; // pointer to next node (self referential)
+    } Node;
+    Node * create_node(char ch) { //take a char and creates a node and returns address of the node
+    Node * node = (Node *) malloc(sizeof(Node)); //dynamic allocation for each node
+    assert(node); //
+    node->data = ch;
+    node->next = NULL;
+    return node;
+    }
+
+print - output all data items in order from head to tail
+  • void print(const Node * head)
+      • use a Node pointer named cur to advance node by node through list, each time cur encounters another node, output that node’s data value
+
+length - reports number of items currently in list
+    • long length(const Node * head)
+        • simliar to print, instead of printer, just adds 1 to count per advance
+
+add_after - insert new node with a given data value immediately after a given existing node
+    • void add_after(Node * node, char val) // 2 inputs 
+        • val paramater - data value to place in new node
+        • node parameter - holds address of existing node where new node should be placed right after (parent of new child node)
+        • new node needs to be dynamically allocated
+        • additional statements are needed to adjust links appropriately so list stays connected
