@@ -37,3 +37,36 @@ add_after - insert new node with a given data value immediately after a given ex
         • node parameter - holds address of existing node where new node should be placed right after (parent of new child node)
         • new node needs to be dynamically allocated
         • additional statements are needed to adjust links appropriately so list stays connected
+
+
+Day 18 MORE ON LINKED LIST
+• Pointer are pass by value
+• The linked list head should be passed by reference if it needs to be updated (below functions must have address of the head --> double pointer **)
+• the address of a pointer is a double pointer
+            void fun1(int ** ip) {
+            *ip += 1; // increment the address by 4 bytes (bc its a int)
+            }
+
+Other good ones:
+• clear - deallocates all nodes in the list, sets head pointer to null
+• add_front --> void add_front(Node ** list_ptr, char val); (** bc it messes with head, unlike add_after that never messes with head)
+        void add_front(Node ** list_ptr, char val) { //(address of head and value as parameter)
+        Node * new = create_node(val);
+        new->next = *list_ptr; //new node's next gets address of old first node
+        *list_ptr = new;
+• clear_list (free all nodes)
+• remove_after --> char remove_after(Node * node);
+• remove_front --> char remove_front(Node ** list_ptr);
+• remove_all (remove all occurrences of a particular data value)
+
+
+
+
+
+
+
+
+
+
+
+
