@@ -1,0 +1,90 @@
+INTRO TO C++
+• now has bools (t/f)
+• endl - produces new line character
+• extension - .cpp
+• headers work the same as C
+• cout - standard output stream
+• << insert operator
+• >> extract operator
+• cmd line args the same
+• <cassert> for assertion library
+• cin >> - read from user input (scanf) - reads one token stops after c white space
+    • cin.get(ch) - read single character
+
+hello_word eg:
+    // hello_world.cpp:
+    #include <iostream>
+    //namespace (next 2 lines, live in space called std, simliar to java packages)
+    using std::cout; //if no these two lines have to do std::cout << "Hello world" << std::endl;
+    using std::endl; //no "using" in header files
+    int main() {
+    cout << "Hello world!" << endl;
+    return 0;
+    }
+
+printing eg:
+    #include <iostream>
+    using std::cout;
+    using std::endl;
+    int main() {
+    int inventory = 44;
+    double price = 70.07;
+    const char *item = "chainsaw";
+    cout << "We have " << inventory << " " << item << "s left,"
+    << " costing $" << price << " per unit" << endl; 
+    return 0; //prints --> We have 44 chainsaws left, costing $70.07 per unit
+    }
+
+user input eg
+    #include <iostream>
+    #include <string> // new header -- not used in C
+    using std::cout; using std::cin;
+    using std::endl; using std::string;
+    int main() {
+    cout << "Please enter your first name: ";
+    string name;
+    cin >> name; // read user input into string object
+    cout << "Hello, " << name << "!" << endl;
+    return 0;
+
+linking
+  • g++ instead of gcc
+  • -std=c++11 instead of -std=c99
+  • .cpp instead of .c
+
+
+
+
+
+
+
+STRINGS
+www.cplusplus.com/reference/string/string/
+• #include <string> w/ full name: std::string
+ways to initalize strings:
+      string s1 = "world"; // initializes to "world" (empty first then assigns)
+      string s2("hello"); // just like s2 = "hello" (directly calls constructor)
+      string s3(3, 'a'); // s2 is "aaa"
+      string s4; // empty string ""
+      string s5(s2); // copies s2 into s5
+ways to use strings:
+      s = "wow"
+      cin >> s // put one whitespace-delimited input word in s
+      cout << s // write s to standard out
+      getline(cin, s) // read to end of line from stdin, store in s
+      s1 = s2 // copy contents of s2 into s1
+      s1 + s2 // return new string: s1 concatenated with s2
+      s1 += s2 // same as s1.append(s2)
+      == != < > <= >= // relational operators; alphabetical order
+more:
+      s = "hello"
+      s.length() //prints string length (5)
+      s.capacity() //prints bytes of memory allocated
+      s.substr(offset, howmany) //gives substring of s
+            cout << s.substr(1, 3) << endl; // prints "ell"
+      s.c_str() returns C-style "const char *" version
+            cout << strlen(s.c_str()) << endl; // prints 5
+position:
+      s[5] 6th character in string
+      s.at(5) do same, additionally doing a “bounds check” (like Java’s ArrayIndexOutOfBounds)
+
