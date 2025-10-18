@@ -1,0 +1,68 @@
+STL (Standard Template Library)
+• three components - iterators, containers, algorithms
+• templates - a way of writing an object (i.e. Node) or function (i.e. print_list) so they can work with any type
+      • Defining a template is simultaneously defining a family of related objects/functions
+eg: 
+      template<typename T> //T can be any type (int float etc)
+      struct Node {
+        T payload;
+        Node *next; };
+      template<typename T>
+      void print_list(Node<T> *head) {
+        Node<T> *cur = head;
+          while(cur != NULL) {
+          cout << cur->payload << " ";
+          cur = cur->next; }
+        cout << endl; }
+• egs of types:
+    • vector<string> – vector of std::strings
+    • vector<float> – vector of floats
+    • map<string, int> – map containing std::strings with associated ints
+• egs of classes:
+    • array – fixed-length array
+    • vector – dynamically-sized array
+    • set – set; an element can appear at most once
+    • list – linked list!
+    • map – associative list, i.e. dictionary
+    • stack – last-in first-out (LIFO)
+    • deque – double-ended queue, flexible combo of LIFO/FIFO
+
+
+
+
+
+
+C++ VECTORS
+• dynamic - shrinks and grows as needed
+• Use [] to access elements, like array
+• #include <vector> to use it -- std::vector<char>
+• Declare a vector:
+      using std::vector;
+      vector<std::string> names;
+• Add elements to back of vector:
+      names.push_back("Alex Hamilton");
+      names.push_back("Ben Franklin");
+• Print num of items in vector, and first and last items:
+      cout << "Size =" << names.size()
+      << ", first =" << names.front()
+      << ", last =" << names.back() << endl; //the same as in C names.size()-1
+Print all elements of a vector
+  With indexing:
+      for(size_t i = 0; i < names.size(); i++) {
+          cout << names[i] << endl; }
+  With an iterator (like pointers):
+      //for (type of STL container :: iterator name_of_iterator = names.begin; ...)
+      for( vector<string>::iterator it = names.begin(); it != names.end(); ++it) {
+          cout << *it << endl; }
+      //to reverse, just use .rbegin() and .rend()
+• more on iterators
+        • front/back – get first/last element
+        • pop_back – return and delete final element
+        • erase, insert, clear, at, empty – just like string
+        • swap – swap elements
+        • begin/end – iterators for beginning/end
+        • rbegin/rend – reverse_iterators for beginning/end
+        • cbegin/cend – const_iterators for beginning/end (more
+        about these soon)
+
+
