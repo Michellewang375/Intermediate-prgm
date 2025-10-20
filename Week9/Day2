@@ -1,0 +1,144 @@
+STL CONTAINERS
+
+
+Map (#include <map>)
+• Collection of keys, each with an associated value (like Python’s dictionary type)
+    • each map is a bunch of pairs
+• Value can be any type you wish
+• Key can be any type for which '<' can compare two values
+• A map can only associate 1 value with a key --> Will replace existing val if reassigned 
+• each key is a distinct value
+• each entry in a map is a pair (itself is an STL container)
+    • Dereferenced map iterator type is std::pair<key_type, value_type>
+• Declare a map:
+    map<int, string> id_to_name;
+• Add a key & value to a map:
+    id_to_name[92394] = "Alex Hamilton";
+• Print a key and associated value:
+    const int k = 92394;
+    cout << "Key=" << k << ", Value=" << id_to_name[k] << endl;
+• Get number of keys:
+    id_to_name.size();
+• Check if map contains (has a value for) a given key:
+    if(id_to_name.find(92394) != id_to_name.end()) {
+        cout << "Found it" << endl;
+    } else {
+        cout << "Didn't find it" << endl; }
+• Visit all the elements of the map (iterator)
+    // Iterator type: map<int, string>::iterator; iterator moves in ascending order if want to reverse just use reverse_iterator)
+    for(map<int, string>::iterator it = id_to_name.begin(); it != id_to_name.end(); ++it) {
+        cout << " " << it->first << ": " << it->second << endl; } //it->first gets key, it->second gets value
+• full eg:
+    #include <iostream>
+    #include <map>
+    #include <string>
+    using std::cout; using std::endl; using std::string; using std::map;
+    int main() {
+        map<int, string> id_to_name;
+        id_to_name[92394] = "Alex Hamilton";
+        id_to_name[13522] = "Ben Franklin";
+        id_to_name[42345] = "George Washington";
+        cout << "size of id_to_name " << id_to_name.size() << endl; //size of id_to_name 3
+        cout << "id_to_name[92394] " << id_to_name[92394] << endl; //id_to_name[92394] Alex Hamilton
+        for(map<int, string>::iterator it = id_to_name.begin(); it != id_to_name.end(); ++it) {
+            cout << " " << it->first << ": " << it->second << endl; }
+    return 0; } 
+            // 13522: Ben Franklin; 42345: George Washington; 92394: Alex Hamilton
+
+
+functions that return multiple values
+• Option 1: pass-by-pointer arguments: make extra pointer parameters as reutrn functions and store the calcuations in them
+    void divmod(int a, int b, int *quo, int *rem) {
+      *quo = a / b;
+      *rem = a % b; }
+• Option 2: define struct for divmod’s return type:
+    struct quo_rem {
+      int quotient;
+      int remainder; };
+    quo_rem divmod(int a, int b) {
+      quo_rem result = {a/b, a%b}; //2 fields, the returns
+      return result; }
+• Option 3: STL pair (return pair<type1, type2>)
+      #include <utility> // where pair and make_pair are defined
+      using std::pair; using std::make_pair; using std::cout; using std::endl;
+      pair<int, int> divmod(int a, int b) {
+          return make_pair(a/b, a%b);
+          }
+      int main() {
+      pair<int, int> qr_10_5 = divmod(10, 5);
+      pair<int, int> qr_10_3 = divmod(10, 3); 
+      cout << "10/5 quotient=" << qr_10_5.first << ", remainder=" << qr_10_5.second << endl; //get first item .first
+      return 0;}
+  • Relational operators for pair work as expected: 1. Compares first field first 2. if there’s a tie, compares second field
+      i.e. make_pair(2, 3) < make_pair(3, 2) is true
+• short cuts (typedef / using)
+      map<int, string>::iterator // iterator over a map (map of int to string)
+      map<string, map<string, int>>::iterator // iterator
+    instead
+      typedef map<int, string> TMap; // map type
+      typedef TMap::iterator TMapItr; // map iterator type
+    or
+      using TMap = map<int, string>; // map type
+      using TMapItr = TMap::iterator; // map iterator type
+• modify the data structure via the dereferenced iterator:
+    typedef vector<int>::iterator TItr;
+    void prefix_sum(TItr begin, TItr end) {
+        int sum = 0;
+        for(TItr it = begin; it != end; ++it) {
+        *it += sum;
+        sum += *it; }
+
+
+Iterator
+• const_iterator does not allow modifications (cbegin(); for reverse (crbegin())
+
+
+Tuple
+• pair but with as many fields as you like
+    #include <tuple>
+    using std::tuple; using std::make_tuple;
+    tuple<int, int, float> divmod(int a, int b) {
+        return make_tuple(a/b, a%b, (float)a/b); }
+• get<N>(tuple_name) gets the Nth field of variable tup
+• eg:
+#include <iostream>
+#include <tuple>
+    using std::cout; using std::endl; using std::tuple; using std::make_tuple; using std::get;
+    tuple<int, int, float> divmod(int a, int b) {
+        return make_tuple(a/b, a%b, (float)a/b); }
+    int main() {
+    tuple<int, int, float> qr_10_3 = divmod(10, 3);
+    cout << "10/3 quotient=" << get<0>(qr_10_3) << ", remainder=" << get<1>(qr_10_3) << ", decimal quotient=" << get<2>(qr_10_3) << endl;
+    return 0; }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ALGORITHMS (#include <algorithm>)
+• std::sort (arrange in ascending order)
+    sort (begin, end)
+• std::find
+    find (begin inclusive, end exclusive, target)
+• stf::count
+    count (begin inclusive, end exclusive, target)
+• std::is_permutation //see if two arrays hold same values
+    is_permutation (arr1's begin, arr1's end, arr2's begin) //will look for number of elements indicated by the range of arr1
+
+
+
+    
+
+
+
+
+
