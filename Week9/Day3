@@ -1,0 +1,48 @@
+I/O FILE
+#include <iostream>
+#include <fstream>
+• using std::cerr; // default error output stream
+• std::ofstream //fprintf, writing from a file
+• std::ifstream //fscanf, reading from a file
+• std::fstream // for reading and writing to/from a file
+• std::stringstream //gives a stream associated w/ a string (can read and write from it)
+        Instead of reading or writing to console or file, it reads and writes to a temporary string (“buffer”) stored inside
+• str() function can be used to get the content of the buffer
+    • str(string) sets the content of the buffer to the string. converts the stream at that point to strings
+      #include <string>
+      #include <iostream>
+      #include <sstream>
+      int main(){
+          std::stringstream ss;
+          ss << "Hello" << ' ' << 2019 << " world";
+          std::cout << ss.str() << std::endl;
+          std::string word1, word2; //word1 (hello), word2(world), num(2019)
+          int num;
+          ss >> word1 >> num >> word2;
+          std::cout << word1 << ", " << word2 << " " << num << '!' << std::endl;
+          return 0; } //Hello 2019 world (new line) Hello, world 2019!
+• istringstream --> jsut reading stream
+• ostringstream --> just writing stream
+
+
+
+
+
+OBJECT ORIENTED PROGRAMMING
+• use classes to define new data type
+• Special functions called constructors are used to initialize class objects
+    (also called instances - variables declared to be of a class type)
+• Special fuctions called destructors are used to perform clean-up operations just before the lifetime of a class instance ends
+• We can use inheritance to define a class by extending an existing class (allowed to have multiple inheritance)
+
+Inheritance: class A inherits from class B if every class A object “is-a” class B object also
+              ios
+              / \
+       istream    ostream
+        / \         / \
+  ifstream  iostream   ofstream
+              / \
+      fstream    stringstream
+
+  • everything inherit from input stream can use the extractor operator to print something or extract something from the input stream.
+
