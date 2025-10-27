@@ -1,0 +1,102 @@
+CLASSES
+• Class defintion: blueprint defining a type
+• Objects of that type are created from that blueprint
+• Once a class is defined, it can create objects
+• Each of the objects is an instance of the class and has its own copies of all instance variables
+    class Rectangle {
+        public:
+        double width;
+        double height;
+        void print() const {
+            cout << "width=" << width << ", height=" << height << endl; }
+        double area() const {
+            return width * height; }
+    int main() {
+        Rectangle r = {30.0, 40.0};
+        r.print();
+        cout << "area=" << r.area() << endl;
+        return 0; }
+• Basic principles:
+    • using const means that function will not modify any member fields
+    • Class definition goes in a .h file
+    • Functions can be declared and defined inside class { ... };
+        • “in-lining” the function definition: Only define member function inside the class definition if it’s very short
+        • Otherwise, put a prototype in the class definition and define the member function in a .cpp file
+    • you’ll need to qualify the function with the class scope such as Classname::function() { } in the .cpp file
+Option 1
+    #ifndef RECTANGLE_H
+    #define RECTANGLE_H
+    class Rectangle {
+        double area() const {
+        // short definition inside class
+        return width * height;
+        } };
+    #endif
+Option 2
+  //In Rectangle.h:
+    #ifndef RECTANGLE_H
+    #define RECTANGLE_H
+    class Rectangle {
+      double area() const;
+    };
+    #endif
+  //In Rectangle.cpp:
+    #include "Rectangle.h"
+        double Rectangle::area() const { // def'n outside class
+    return width * height; }
+• fields are private by default, but can be public (public: ), private (private: ), or protected
+    • public: can be accessed freely by any code with access to the class definition (includes .h)
+    • private: can be accessed from other member functions in the class, but not by a user of the class (cant change it outside the implementation of that member functions of that class)
+• fields shouldnt be initalized, unless they r static 
+    class Rectangle {
+    public:
+      double area() const {
+      return width * height; }
+    private:
+      double width, height; }; //only accessible when class is implemented
+
+
+
+
+
+
+DEFAULT CONSTRUCTOR
+• Default constructor for a class: a member function that is called when you declare a new variable of that class without any initialization
+    int main() {
+       Rectangle r; } // behind the scenes, Rectangle's default constructor is called
+• Constructor: a member function you can define yourself (should be public)
+    • Function name must match the class name exactly
+    class Rectangle {
+    public:
+    // default constructor for Rectangle
+      Rectangle() { ... }
+      ... }
+• Compiler-generated default constructor does: 
+    • Built-in types (int, doubles,. . . ), instance variables aren’t initialized (so they have garbage values)
+    • For instance variables of class types, default constructor for that class type is called
+• A constructor is called implicitly when a new object is declared or explicitly when one is created using new.
+    int main() {
+      // calls default constructor for r
+      Rectangle r;
+      // calls default constructor for *rp
+      Rectangle *rp = new Rectangle(); }
+• creating own constructor: the compiler won’t generate any constructor for us
+    class Rectangle {
+    public:
+    //defining own constructor - intlaizer list
+      Rectangle() : width(0.0), height(0.0) { }
+    private:
+      double width, height; };
+
+
+
+
+
+
+
+
+
+
+
+
+
