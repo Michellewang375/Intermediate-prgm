@@ -1,0 +1,43 @@
+REFERENCE
+• another name for an existing variable (memory location) - 2 names to the variable going to same location 
+• restrictions:
+    • Can’t be NULL
+    • Must be initialized immediately
+    • Once set to alias a variable, can’t later be set to alias another
+• Declare a reference of type int: int& (the & comes after the type)
+• functions paramters with reference types are passed by reference: void swap(int& a, int& b) --> call using swap(a,b) no need &
+    int main() {
+        int i = 1;
+        int& j = i;
+        std::cout << "i=" << i << ", j=" << j << std::endl;
+        i = 9;
+        std::cout << "i=" << i << ", j=" << j << std::endl;
+        return 0; } // i=1, *j=1 --> i=9, *j=9 (no need to deref cuz it points to same thing)
+• functions can be both pass and non pass by value
+• reference can be returned
+
+
+
+
+DYNAMIC MEM ALLOCATION
+• new and delete are essentially the C++ versions of malloc and free
+• new not only allocates the memory, it also calls the appropriate constructor if used on a class type (more on this later)
+• new and delete are “keywords” rather than functions, so you don’t use (...) when calling them
+    int main() {
+    int *iptr = new int;
+    *iptr = 10;
+    cout << "value of iptr " << iptr << endl; // 0
+    cout << "value in *iptr " << *iptr << endl; // 0x55f4e3ad1eb0
+    delete iptr;
+    return 0;
+• T * fresh = new T[n] (allocates an array of n elements of type T)
+    • to free - delete [] fresh
+    • If T is a “built-in” type (int, float, char, etc), then the values are not initialized, like with malloc
+    • If T is a class, then T’s default constructor is called for each
+    int main() {
+        double *d_array = new double[10];
+        for(int i = 0; i < 10; i++) {
+        cout << (d_array[i] = i * 2) << " "; }
+    cout << endl; //0 2 4 6 8 10 12 14 16 18
+    delete[] d_array;
+    return 0;
