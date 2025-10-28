@@ -1,0 +1,135 @@
+ALTERNATE CONSTRUCTOR
+// calling the call along the non defualt constructor, and then using "hello" to visualize the member view 
+string s1("hello");
+// called defualt constrcutor to create object and the assign the variable to that object
+string s2 = "world";
+eg: 
+    #include <iostream>
+    class DefaultSeven {
+    public:
+      // default constructor commented out
+      // DefaultSeven() : i(7) { }
+      // non-default constructor
+      DefaultSeven(int initial) : i(initial) { } //can still use intializer list
+      int get_i() { return i; }
+    private:
+      int i; };
+    int main() {
+      DefaultSeven s(10);
+      std::cout << "s.get_i() = " << s.get_i() << std::endl; //s.get_i() = 10
+      return 0; }
+
+
+DEFUALT ARGUMENTS
+• can specify default values for function arguments in the definition
+• omit parameters when calling the function, but only sequentially from right to left (can’t skip middle params)
+• Default argument values create several functions in one (any function, even in classes)
+• Useful for creating multiple constructors
+• If include default values for all arguments, this results in usage as a default (parameter-less) constructor
+eg:
+    #include <iostream>
+    class DefaultSeven {
+    public:
+      // compiler generates three ways to call: one with two arg passing, one with one arg, one with none
+      DefaultSeven(int initial = 7, double val = .5) : i(initial), v(val) { }
+      int get_i() { return i; }
+      double get_v() { return v; }
+    private:
+      int i;
+      double v; };
+    int main() {
+      DefaultSeven one(10, 20), two(2), tre;
+      std::cout << one.get_i() << " " << one.get_v() << std::endl; //10 20
+      std::cout << two.get_i() << " " << two.get_v() << std::endl; //2 0.5 --> the 2 is for intial, default for val is .5
+      std::cout << tre.get_i() << " " << tre.get_v() << std::endl; //7 0.5
+      return 0; }
+
+
+
+this POINTER
+• 'this' is a pointer to the instance variable and can be used to clarify:
+• this->init always refers to the instance variable 
+eg:
+    #include <iostream>
+    class MyThing {
+    public:
+      MyThing(int init) : init(init) { }
+      // initializer list is ok ^^^^
+      int get_i() { return init; }
+      void set_i(int init) { this->init = init; }
+      // using this pointer ^^^^^^ to clarify
+    private:
+      int init; };
+    int main() {
+      MyThing s(10);
+      s.set_i(20);
+      std::cout << "s.get_i() = " << s.get_i() << std::endl; //s.get_i() = 20
+      return 0; }
+
+
+ARAAY OF OBJECTS
+• Declaring an array of a class type makes all the objects, calling a default constructor to create each one. requires the class to have a default constructor!
+Optyion 1: list-initialization
+    #include <iostream>
+    class MyThing {
+    public:
+      // no default constructor
+      MyThing(int init) : init(init) { }
+      int get_i() { return init; }
+    private:
+      int init; };
+    int main() {
+      // use list-initialization to initialize the array
+      MyThing s[10] = {{0},{1},{2},{3},{4},{5},{6},{7},{8},{9}};
+      std::cout << "s[0].get_i() = " << s[0].get_i() << std::endl;
+      return 0; }
+Option 2:  use STL. e.g. std::vector
+    #include <iostream>
+    #include <vector>
+    class MyThing {
+    public:
+      // no default constructor
+      MyThing(int init) : init(init) { }
+      int get_i() { return init; }
+    private:
+      int init; };
+    int main() {
+    // use empty vector and reserve 10 elements
+      std::vector<MyThing> s
+      s.reserve(10);
+      // initialization using emplace_back
+      for (int i = 0; i < 10; ++i) s.emplace_back(i);
+      std::cout << "s[0].get_i() = " << s[0].get_i() << std::endl;
+      return 0; }
+
+
+
+DESTRUCTORS
+• A class destructor is a method called by C++ when the object’s lifetime ends or it is otherwise deallocated (ie, with delete)
+• A destructor’s name is the name of the class prepended with ~, e.g. ~Rectangle()
+• The destructor is always automatically called when object’s lifetime ends, including when it is deallocated
+• sometime better than delete because it is automatically alled
+    #include <cassert>
+    class Sequence {
+    public:
+      Sequence() : array(NULL), size(0) { }
+      Sequence(int sz) : array(new int[sz]), size(sz) {
+      for(int i = 0; i < sz; i++) {
+      array[i] = i; } }
+    // *** destructor ****
+    ~Sequence() { delete[] array; }
+    int at(int i) {
+      assert(i < size);
+      return array[i]; }
+    private:
+      int *array;
+      int size; };
+
+
+
+
+
+
+
+
+
