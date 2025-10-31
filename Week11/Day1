@@ -1,0 +1,58 @@
+FUNCTION OVERLOADING
+• C++ compiler can distinguish functions with same name but different parameters
+• But it cannot distinguish functions with same name & parameters but different return types
+
+
+OPERATOR OVERLOADING
+• C++ allows us to define new classes (i.e. new types), and we can define new meanings for operators so we can use them on these types
+  • Overloading means piling on another definition for a name
+  • Contrast overloading with overriding, where we replace a definition of a name
+  • Operator syntax is familiar, and compact
+• To specify a new definition for an operator with symbol S, we define a method called operatorS
+eg: 
+    #include <iostream>
+    #include <vector>
+    using std::cout; using std::endl;
+    using std::vector; using std::ostream;
+    ostream& operator<<(ostream& os, const vector<int>& vec) { //function called operator left shift that has paramters cooresponding to the operands we are trying to use
+    for(vector<int>::const_iterator it = vec.cbegin(); it != vec.cend(); ++it) {
+        os << *it << ' '; }
+    return os; }
+    int main() {
+        const vector<int> vec = {1, 2, 3};
+        cout << vec << endl; // now this will work!
+        return 0; }
+//what this does: Allows vector<int> to appear in a typical cout << chain
+    • Taking ostream& os in first parameter & returning os enables chaining
+    • Taking const vector<int>& as second parameter allows the vector<int> to appear as a right operand in a operator<< call
+eg:
+class Rational {
+    public:
+    //...
+    // only one explicit argument now - member instance methods always get one implicit argument (the item pointed to by this)
+    Rational operator+(const Rational& right) const
+    private:
+    int num; //numerator
+    int den; //denominator };
+Rational Rational::operator+(const Rational& right) const {
+    int sum_num = this->num * right.den + right.num * this->den;
+    int sum_den = this->den * right.den;
+    Rational result(sum_num, sum_den);
+    return result; }
+• returning an object by value: copy constructor of the class gets called to make a copy of result before the stack frame is popped (and the result variable is destroyed)
+• friend keyword -  says that the method is trusted by the class, meaning it is made allowed to access private member variables.
+  • grant a non-member function access to the private and protected members of a class.
+  • not part of the class itself 
+    class Rational {
+    public:
+    // ...
+    friend ostream& operator<<(ostream& os, const Rational& r);
+    private:
+    // ... }
+
+
+
+
+
+
+
