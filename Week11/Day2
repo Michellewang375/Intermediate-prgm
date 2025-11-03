@@ -1,0 +1,102 @@
+INITALIZATION AND ASSIGNMENT
+Two kinds of =:
+    • = in a declaration, like int a = 4; (initialization)
+    • = elsewhere, like a = 4; (assignment)
+eg:
+    #include <iostream>
+    #include "complex.h"
+    using std::cout; using std::endl;
+    int main() {
+        Complex c; //default (no-argument) constructor call
+        Complex c2 = {4.9, 0.5}; // = in declaration: *initialization*
+        Complex c3 = c; // = in declaration; also *initialization*
+        c3 = c2; // = outside declaration: *assignment*
+    if(c3.get_real() == 4.9) { // == is *equality testing*
+        cout << "Real part of c3 is equal to 4.9" << endl; }
+    return 0; }
+  //complex.h
+    #include <iostream>
+    class Complex {
+      public:
+  //defualt constructor
+        Complex() : Complex(0.0, 0.0) { std::cout << "Default" << std::endl; }
+  //non-defualt constructor
+        Complex(double r, double i) : real(r), imag(i) { std::cout << "Non-default" << std::endl; }
+  // Copy constructor
+      Complex(const Complex& c) : real(c.real), imag(c.imag) { std::cout << "Copy" << std::endl; }
+  //assignemnt operator
+      Complex& operator=(const Complex& rhs) {
+          std::cout << "Assign" << std::endl;
+          real = rhs.real;
+          imag = rhs.imag;
+          return *this; }
+      double get_real() const { return real; }
+      double get_imag() const { return imag; }
+      private: double real, imag; };
+eg:
+    #include <iostream>
+    int x = 0;
+    class Foo {
+        public:
+        Foo() { x++; } //defualt constructor
+        Foo(const Foo &obj) { x += 3; } //copy constructor
+        Foo& operator=(const Foo &obj) { x += 2; return *this; } };
+    int main() {
+        Foo f1; // calls line 41 x= 1
+        Foo f2(f1); //calls 42 there is a parameter x= 4
+        Foo f3 = f1; //calls 42 because it is being initialized, there is something is it being assingned to therefore not default x = 7
+        f3 = f1; //not intialization, therefore 43  x = 9
+        std::cout << x << std::endl; // x = 9
+        return 0; }
+
+
+RULE OF 3
+• shallow copy - copy field by field, copies the pointers and share same heap space 
+    this->grades[i] = from.grades[i] (sharing pointer)
+• deepy copy -  a new buffer, with contents of copied over
+• Rule of 3: If you have to manage how an object is destroyed, you should also manage how it’s copied
+• Rule of 3 (technical version): If you have a non-trivial destructor, you should also define a copy constructor and an assignment operator
+
+• Copy constructor initializes a class variable as a copy of another - Classname (const Classname &)
+• Called when: 
+  • initializing: Image o_wins = x_wins;
+  • Image o_wins(x_wins); (same meaning as above)
+  • Passing by value
+  • Returning by value
+  • i.e.
+    Image(const Image& o) : nrow(o.nrow), ncol(o.ncol) {
+        image = new char[nrow * ncol];
+        for(int i = 0; i < nrow * ncol; i++) {
+            image[i] = o.image[i]; } }
+
+• operator= (assignemnt operator) is called when one object is assigned to another excpet for intialization
+• i.e.
+    Image& operator=(const Image& o) {
+        delete[] image; // deallocate previous image memory
+        nrow = o.nrow;
+        ncol = o.ncol;
+        image = new char[nrow * ncol];
+    for(int i = 0; i < nrow * ncol; i++) {
+        image[i] = o.image[i]; }
+    return *this; // for chaining }
+
+If don’t specify copy constructor or operator=, compiler adds implicit version that shallow copies
+  • contents of the fields
+  • class fields will have their corresponding copy constructors or operator= functions called
+  • Pointers to heap memory will simply be copied, without the heap memory itself being copied
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
