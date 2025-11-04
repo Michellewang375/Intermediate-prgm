@@ -1,0 +1,47 @@
+TEMPLATE FUNCTIONS
+• Templates allow us to write function or class once:
+    template<typename T>
+    void fun(const T& input) { ... }
+• compiler generates different overloaded versions:
+    void fun(const int& input) { ... }
+    void fun(const float& input) { ... }
+    void fun(const char& input) { ... }
+    void fun(const MyClass& input) { ... }
+• use functions templates when writing functions with essentially the same body, but different types
+eg: 
+    template <typename T> //can also be template <class T>, but has to be class if doing template inside template
+    int sum_every_other(const T& ls) {
+    int total = 0;
+    for(typename T::const_iterator it = ls.cbegin(); it != ls.cend(); ++it) { //need typename to specify it is a template
+        total += *it;
+        if(++it == ls.cend()) { break; } }
+    return total; }
+now compiler instantiates an appropriate function overload
+    int main() {
+    vector<int> vec = {10, 7, 10, 7, 10};
+    list<int> lis; }
+
+
+
+
+
+TEMPLATE CLASSES
+• template classes have to be typically defined in the header files
+//in .h
+    #include <iostream>
+    template<typename T> //template type
+    class Node {
+        public:
+        Node(T pay, Node<T> *nx) : payload(pay), next(nx) { } // constructor (node and pointer)
+        void print() const {
+        const Node<T> *cur = this;
+        while(cur != NULL) {
+            std::cout << cur->payload << ' ';
+            cur = cur->next; }
+    std::cout << std::endl; }
+    private:
+        T payload;
+        Node<T> *next;
+    }
+• compiler doesnt instantiate templates until first use
+• compiler needs the relevant template classes and functions to be fully defined already
