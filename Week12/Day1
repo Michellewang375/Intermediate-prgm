@@ -1,0 +1,120 @@
+INHERITANCE
+• Composition (aggregation): class GradeList {...};, vector<double> - “has a” relationship; a grade list has a vector of grades as part of it
+• Inheritance: class Account {...};, class CheckingAccount {...}; - “is a” relationship; a checking account is a kind of account (almost like a tree, where highest at the top)
+    • can hv multilevel inheritance
+    • hv dervied class inherit from multiple base cases
+
+Syntax:
+    class BaseClass { // Definitions for BaseClass };
+    class DerivedClass : public BaseClass {// Definitions for DerivedClass};
+• Derived class inherits from base class
+• Bascially saying subclass (derived) inherits from superclass (base)
+• access of members in the base class is passed down and preserved
+• If forget to explicitly say public, the default is private
+• protected fields & functions can only be accessed:
+    • from member functions of their class
+    • from member functions defined in derived classes
+• Base-class members marked public or protected can be accessed from member functions defined in the derived class
+• Base-class members marked private cannot be accessed from member functions defined in the derived class
+    • Derived class member functions can’t use them (without public or protected accessor or mutator functions)
+
+What dervied class inherits
+• Most members of base class, whether public, protected or private
+• can only access public and protected members directly
+• Does not inherit constructors and assignment operator if explicitly defined
+• Cannot delete things it inherited; cannot pick and choose what to inherit
+• Can override inherited member functions, as in substitute own implementation for base class’s (can modify its own members fields)
+• i.e.
+    // account.h:
+    class Account {
+    public:
+        Account() : balance(0.0) { } // Default constructor sets balance to 0
+        Account(double initial) : balance(initial) { } 
+        void credit(double amt) { balance += amt; }
+        void debit(double amt) { balance -= amt; }
+        double get_balance() const { return balance; }
+    private:
+        double balance; };
+
+    // checkingaccount.h:
+    class CheckingAccount : public Account {
+    public:
+        CheckingAccount(double initial, double atm) :
+        Account(initial), total_fees(0.0), atm_fee(atm) { } // Account(initial) call to the base class constructor
+        void cash_withdrawal(double amt) {
+        total_fees += atm_fee;
+        debit(amt + atm_fee); }
+        double get_total_fees() const { return total_fees; }
+    private:
+        double total_fees;
+        double atm_fee; };
+
+• Derived classes don’t inherit constructors, therefore need to call their base class constructor to initialize inherited data members
+• The base class constructor call must be the first thing in the derived class constructor
+• If the base class constructor call is missing, then a default constructor for the base class will be called automatically; error if one DNE
+
+    // account_main2.cpp:
+    #include <iostream> #include "account.h" #include "savingsaccount.h"  #include "checkingaccount.h"
+    using std::cout; using std::endl;
+    int main() {
+        Account acct(1000.0);
+        acct.credit(1000.0);
+        acct.debit(100.0);
+        cout << "Account balance is: $" << acct.get_balance() << endl;
+        CheckingAccount checking(1000.0, 2.00);
+        checking.credit(1000.0);
+        checking.cash_withdrawal(100.0); // incurs ATM fee
+        cout << "Checking balance is: $" << checking.get_balance() << endl;
+        cout << "Checking total fees is: $" << checking.get_total_fees() << endl;
+        SavingsAccount saving(1000.0, 0.05);
+        saving.credit(1000.0);
+        cout << "Savings balance is: $" << saving.get_balance() << endl;
+        return 0;
+    }
+• When a derived class object is created, its inherited (base) parts must be initialized before any newly defined parts by executing a base constructor (default or explicit call to one) 
+    • base first then derived
+• When the lifetime of a derived class object is about to end, two destructors are called: one for derived and one for base (dervied first then base)
+
+
+POLYMORPHISM
+• can have many forms even if they are all instances a base class
+• i.e. // account_main3.cpp:
+    #include <iostream> #include "account2.h"
+    using std::cout; using std::endl;
+    void print_account_type(const Account& acct) {
+        cout << acct.type() << endl; }
+    int main() {
+        Account acct(1000.0);
+        CheckingAccount checking(1000.0, 2.00);
+        SavingsAccount saving(1000.0, 0.05);
+        print_account_type(acct);
+        print_account_type(checking);
+        print_account_type(saving);
+        return 0; }
+• Bc a checking_acct has a type CheckingAccount, and CheckingAccount is actually a type of an Account and the print_account_type is accepting an Account, then it is allowed because CheckingAccount is derived from the Account.
+• Normally can use a variable of a derived type as though it has the base type
+• all calls the base class function (meaning Account::type() is being called instead of SavingAccount::type() or CheckingAccount::type()) unless dynamically binended
+
+Dynamic Binding
+• declare relevant member functions as virtual (it can be replaced by something else)
+    class Account {
+    public:
+        virtual std::string type() const { return "Account"; } };
+    class CheckingAccount : public Account {
+    public:
+        virtual std::string type() const { return "CheckingAccount"; } };
+    class SavingsAccount : public Account {
+    public:
+        virtual std::string type() const { return "SavingsAccount"; } };
+
+
+
+        
+        
+    
+    
+
+
+
+
+
