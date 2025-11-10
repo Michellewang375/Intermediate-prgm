@@ -1,0 +1,76 @@
+DYNAMIC DISPATCH
+• object slicing:
+    • When the compiler lays out a derived object in memory, it puts the data of the base class first
+    • Can cast a derived class to its base class: compiler slices out the derived class, i.e. ignores the contents of memory past the base data
+• Use the keyword virtual to indicate that a method may be overridden by a derived class
+• const vs not using const is two diffeent return types
+
+Override keyword
+• When intend to override a function, add override modifier
+    class Account {
+    public:
+        virtual std::string type() const { return "Account"; } };
+    class CheckingAccount : public Account { //must pass by reference in main
+    public:
+        virtual std::string type() const override { return "CheckingAccount"; } };
+                                        // ^^^ use override in derived class
+
+
+
+
+
+FUNCTION HIDING AND ABSTRACT CLASSES
+Pure virtual function
+• i.e. class Shape { public: virtual double size() const = 0; };
+• Declaring a virtual member function and adding = 0
+    • In the memory layout, it means set the address of the virtual function to nullptr
+• When declaring a pure virtual function:
+    • We do not give it an implementation
+    • Makes the class it’s declared in an abstract class
+    • We cannot create a new object with the type, though we might be able to create an object from a derived type
+
+Abstract classes
+• def: when a class has one or more pure virtual functions or has a non-public constructor
+• Cannot declare variables to be of abstract type Shape
+• We can have pointers and references of abstract class type but not concrete objects
+• If we do not override the pure virtual function in derived class, then derived class also becomes abstract class
+• An abstract class can have constructors
+i.e.
+    class Piece {
+    public: ...
+    protected:
+        // This is the only constructor
+        Piece(bool is_white): is_white(is_white){ }
+        ...
+    private:
+        bool is_white; };
+    class Queen: public Piece {
+        ...
+        // Queen constructor calls Piece constructor, OK because it's protected
+        Queen( bool is_white ) : Piece( is_white ) { }
+        ... };
+
+
+
+VIRTUAL DESTRUCTORS
+i.e.
+virtual ~Base() { delete[] base_memory; }
+#include "virt_dtor2.h"
+int main() {
+    // Note use of base-class pointer
+    Base *obj = new Derived();
+    delete obj; // calls what destructor(s)?
+    return 0; }
+• so that with dynamic binding, delete obj calls ~Derived, which in turn calls ~Base
+• Derived-class destructor always implicitly calls base-class destructor at the end
+• In general, Any class with virtual member functions should also have a virtual destructor, even if the destructor does nothing
+
+
+
+
+
+
+
+
+
+
