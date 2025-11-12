@@ -1,0 +1,28 @@
+OO DESIGN AND UML
+• When are objects in a problem definition are related by inheritance?
+    • If you can say “every A is a B”
+      • B could be a base class (superclass, parent)
+      • A would be a derived class (subclass, child)
+      • class A inherits from class B (like A contained within B)
+    • "is-a" relationship
+        • eg: Every cat is a mammal; Every desk is furniture
+
+• When are objects in a problem definition are related by composition?
+    • If you can say “every A has a B”
+      • A would be the containing class
+      • B would be the contained class
+      • class A is partially composed from class B
+    • "has-a" relationship
+        • eg: Every desk has a chair; Every clinic has employees
+  • Aggregation is like composition, but for collections of objects of another class type
+
+
+
+
+UML (Unified Modeling Language)
+• helps visualize relationships:
+    • class names go in rectangles
+    • triangle arrow goes from derived class (A) to base class (B) (inheritance -->)
+        • class A — IS-A —> class B
+    • diamond arrows at a containing class (A) goes to the contained class (B) (composition --<>)
+        • class A <>— HAS-A — class B
