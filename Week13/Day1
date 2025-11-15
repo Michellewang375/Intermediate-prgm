@@ -1,0 +1,113 @@
+ENUMERAION
+unscoped
+• distinct type whose value is restricted to a range of integer values
+• can include several explicitly named constants
+    enum Color { red, green, blue }; // an unscoped enum
+    Color r = red;
+    switch(r) {
+      case red : std::cout << "red\n"; break;
+      case green: std::cout << "green\n"; break;
+      case blue : std::cout << "blue\n"; break; }
+• each enumerator is associated with a value of the underlying type:
+    enum Foo { a, b, c = 10, d, e = 1, f, g = f + c }; 
+    //a = 0, b = 1, c = 10, d = 11, e = 1, f = 2, g = 12 (inc by one unless assgined, and then con to inc after)
+• the values can be converted to their underlying type:
+    enum color { red, yellow, green = 20, blue };
+    color col = red;
+    int n = blue; // n == 21
+• you can specify the underlying type explicitly:
+    enum color : char { red, yellow, green = 20, blue };
+
+scoped
+• declaring a scoped enumeration type whose underlying type is int (keywords class and struct are exactly equivalent)
+  • underlying type is int unless specified
+      enum struct|class name { enumerator = constexpr ,enumerator = constexpr , ... }
+• example:
+    enum class Color { red, green = 20, blue };
+    Color r = Color::blue;
+    switch(r) {
+    case Color::red : std::cout << "red\n"; break;
+    case Color::green: std::cout << "green\n"; break;
+    case Color::blue : std::cout << "blue\n"; break; }
+• specify underlying type or explicit conversion
+    int n = Color::blue; // NOT OK
+    int m = (int) Color::blue; // OK
+    int l = static_cast<int>(Color::blue); // OK
+    enum class Color : char { red, yellow, green = 20, blue };
+
+
+
+
+
+
+
+EXCEPTIONS
+• exceptions - indicate a fatal error has occurred, where there is no reasonable way to continue from the point of the error (error checkpoints)
+• It might be possible to continue from somewhere else, but not from the point of the error
+• more flexible; often less error prone, more concise than manually propagating errors back through the chain of callers
+• when exception is thrown, a std::exception object is created - derive from std::exception base class
+• Exception’s type and contents (accessed via .what()) describe what went wrong
+• #iclude <stdexcept>
+    • bad alloc
+    • logic error (length err, domain err, out of range, invalid arg)
+    • runtime (range err, overflow err, underflow err)
+    • bad casting
+    #include <iostream> #include <new> // bad_alloc defined here
+    #include <stdexcept> // standard exception classes defined
+    using std::cout; using std::endl;
+    int main() {
+      size_t mem = 1;
+      char *lots_of_mem;
+      try {
+        while(true) {
+          lots_of_mem = new char[mem];
+          delete[] lots_of_mem;
+          mem *= 2; } }
+    catch(const std::bad_alloc& ex) { cout << "Got a bad_alloc!" << endl << ex.what() << endl; }
+    cout << "Forever is a long time" << endl;
+    return 0; }
+
+try and catch
+• try marks block of code where an exception might be thrown, but ready to handle some or all of them
+• catch block, immediately after try block, says what to do in the event of a particular exception
+  • one try can have multiple catch blocks (will process in order)
+    try {
+      while(true) { lots_of_mem = new char[mem]; // !
+      delete[] lots_of_mem;
+      mem *= 2; } }
+    catch(const bad_alloc& ex) { cout << "Yep, got a bad_alloc" << endl; }
+
+throw point
+• The point in the program where the exception is actually thrown
+• when thrown, don’t proceed to the next statement but instead follows a process of “unwinding”
+• Unwinding: keep moving “up” to wider enclosing scopes; stop at try block with relevant catch clause (go to wider scope "checkpoint")
+    if(a == b) {
+      try {
+        while(c < 10) {
+          try {
+            if(d % 3 == 1) {
+              throw std::runtime_error("!"); } }
+          catch(const bad_alloc &e) {...}}}
+      catch(const runtime_error &e) {// after throw, control moves here...}}
+  • If we unwind all the way to the point where our scope is an entire function, we jump back to the caller and continue the unwinding
+    i.e. if fun2 called by fun1, exception in fun2 can trace all the back to exceptions is fun1
+  • If exception is never caught, main – exception info is printed to console & program exit)
+  • unwinding causes local variables to go out of scope -> call destructor
+  
+    
+
+
+
+CUSTOMIZED EXCEPTIONS
+• exceptions are related through inheritance, can choose whether to catch a base class or a derived class
+    
+
+    
+
+
+
+
+
+
+
+    
