@@ -1,0 +1,27 @@
+ITERATORS
+linked list of ints
+//.h
+#include <iostream>
+class ListNode {
+    public: // private: //usually private but public for this example
+    ListNode(int val, ListNode *nxt) : data(val), next(nxt) {}
+    int data;
+    ListNode *next; }
+
+//in .cpp
+//Run through all items in list, output them one by one
+for (ListNode* cur = &l1; cur != nullptr; cur = cur->next) { std::cout << cur->data << " "; }
+
+• Code to “run through all elements” looks very different (cur pointer that advances through linked list vs. for loop over integer indices of vector)
+• C++ iterators unify these different code segments
+• Regardless of the container specifics, an iterator feels like a pointer to successive individual elements, that we can easily advance
+
+Different iterators
+• iterator - over a container to traverse elements in the container in order from beginning to end
+reverse_iterator - can be used to traverse elements in a backwards direction
+const_iterator - is an iterator which promises not to modify individual elements as it progresses through them
+
+Defining our own iterators
+• can write iterator as a nested class inside container class
+    • A nested class sits inside another class definition, and has access to the members of the enclosing class, including private members
+    • for (MyContainerType::iterator it = c.begin(); it != c.end(); ++it) {std::cout << *it << " "; }
