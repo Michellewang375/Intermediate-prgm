@@ -1,0 +1,23 @@
+FUNCTORS
+• able to pass functionality (C through function ptrs, c++ through memeber function objects --> through overloading and templates)
+• an object that acts like a function by defining the function call operator – operator()
+    • need them to support paramterized functions
+
+LAMBDAS
+• functors that are defined on-the-fly
+• keywords: []( arg1, arg2 ){ return something; } //multiple returns should be of same type
+    • []( int i1 , int i2 ){ return i1<i2; }
+• The contents within the brackets describe what is captured – which local variables the body of the function has access to, and whether the access is by value or by reference.
+    • empty - nothing is captured.
+    • A comma-separated list enumerates the variables captured
+    • With a “&” prefix means “captured by reference”
+    • Without a “&” prefix means “captured by value”
+    • Just a “&” inside the brackets means “all variables are captured by reference”
+
+AUTO 
+• auto keyword - compiler determines the variable's type based on its initializer expression
+    auto sort_lambda = []( int i1 , int i2 ){ return i1<i2; };
+    //in iterators
+    auto it=c.cbegin()
+    auto it=v.begin()
+        
